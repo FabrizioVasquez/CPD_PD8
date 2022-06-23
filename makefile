@@ -1,4 +1,4 @@
 make:
-	mpic++ quad_secuencial.cpp
-	mpirun -np 4 ./a.out
+	mpic++ quad_mpi.cpp
+	mpirun -np 3 ./a.out
 	rm ./a.out
