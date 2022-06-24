@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <omp.h>
+#include<fstream>
 
 using namespace std;
 
@@ -30,8 +31,9 @@ void timestamp (){
 # undef TIME_SIZE
 }
 */
-int main ()
-{
+int main(int argc, char *argv[]){
+  long num = strtol(argv[1], NULL, 10);
+  int num2 = num;
   double a = 0.0,b = 10.0,error;
   double exact = 0.49936338107645674464;
   int i, n = 10000000;
@@ -46,8 +48,7 @@ int main ()
   wtime1 = cpu_time();
 
   total = 0.0;
-
-  #pragma omp parallel shared (a,b,n)
+  #pragma omp parallel shared (a,b,n) num_threads(num2)
   #pragma omp for private (i) reduction(+:total)
     for (int i=0; i<n; i++){
         x = ((n-i-1)*a+i*b)/(n-1);
@@ -57,14 +58,17 @@ int main ()
   
   #pragma omp master
   {
+    std::ofstream file_out("tiempos_quad_omp_"+std::to_string(n)+".txt",std::ios::out|std::ios::app);
     total = (b-a)*total/n;
     error = fabs(total-exact);
     wtime = wtime2 - wtime1;
+    file_out <<num2<<"\t"<< wtime<< std::endl;
   }
 
   printf ( "  Valor estimado = %24.16f\n", exact );
   printf ( "  Error    = %e\n", error );
   printf ( "  Tiempo     = %f\n", wtime );
+
 
   return 0;
 }

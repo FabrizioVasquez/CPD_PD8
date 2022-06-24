@@ -1,0 +1,5 @@
+make:
+	mpic++ quad_mpi.cpp -o quad_mpi.x
+	for np in 2 4 6 8 10 12
+	mpirun -np 2 ./quad_mpi.x
+	rm quad_mpi.x

@@ -30,6 +30,7 @@ void timestamp (){
 */
 int main ()
 {
+  std::cout<<"ESTO ES SEQUENCIAL"<<std::endl;
   double a = 0.0,b = 10.0,error;
   double exact = 0.49936338107645674464;
   int i, n = 10000000;
@@ -58,7 +59,8 @@ int main ()
   printf ( "  Valor estimado = %24.16f\n", exact );
   printf ( "  Error    = %e\n", error );
   printf ( "  Tiempo     = %f\n", wtime );
-
+  std::cout<<"-------------------------------------"<<std::endl;
+  
   return 0;
 }
 
