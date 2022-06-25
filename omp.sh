@@ -1,3 +1,6 @@
+#!/bin/bash
+#SBATCH --job-name=ompQuad
+#SBATCH -o outputQuad.out
 
 module load gcc/10.1.0
 module load mpich/4.0
