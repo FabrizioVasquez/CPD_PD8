@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <omp.h>
+#include <fstream>
 using namespace std;
 
 double f(double x){
@@ -28,12 +30,12 @@ void timestamp (){
 # undef TIME_SIZE
 }
 */
-int main ()
-{
+int main(int argc, char *argv[]){
   std::cout<<"ESTO ES SEQUENCIAL"<<std::endl;
+  long n = strtol(argv[1], NULL, 10);
   double a = 0.0,b = 10.0,error;
   double exact = 0.49936338107645674464;
-  int i, n = 10000000;
+  int i;
   double total, wtime,wtime1,wtime2, x;
 
   //timestamp ( );
@@ -42,7 +44,7 @@ int main ()
   printf ( "  A, B, N  = %f, %f, %d\n", a,b,n );
   printf ( "  Valor exacto = %24.16f\n", exact );
 
-  wtime1 = cpu_time();
+  wtime1 = omp_get_wtime();
 
   total = 0.0;
 
@@ -50,11 +52,14 @@ int main ()
     x = ((n-i-1)*a+i*b)/(n-1);
     total=total+f(x);
   }
-  wtime2 = cpu_time();
+  wtime2 = omp_get_wtime();
 
   total = (b-a)*total/n;
   error = fabs(total-exact);
   wtime = wtime2 - wtime1;
+
+  std::ofstream file_out("tiempos_quad_secuencial.txt", std::ios::out|std::ios::app);
+  file_out << n << "\t" << wtime << std::endl;
 
   printf ( "  Valor estimado = %24.16f\n", exact );
   printf ( "  Error    = %e\n", error );
