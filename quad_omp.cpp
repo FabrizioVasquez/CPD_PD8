@@ -33,10 +33,11 @@ void timestamp (){
 */
 int main(int argc, char *argv[]){
   long num = strtol(argv[1], NULL, 10);
+  long n = strtol(argv[2], NULL, 10);
   int num2 = num;
   double a = 0.0,b = 10.0,error;
   double exact = 0.49936338107645674464;
-  int i, n = 10000000;
+  int i;
   double total, wtime,wtime1,wtime2, x;
 
   //timestamp ( );
@@ -72,5 +73,3 @@ int main(int argc, char *argv[]){
 
   return 0;
 }
-
-
