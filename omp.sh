@@ -15,5 +15,7 @@ do
         done
 done
 
+rm quad_omp.x
+
 module unload mpich/4.0
 module unload gcc/10.1.0
