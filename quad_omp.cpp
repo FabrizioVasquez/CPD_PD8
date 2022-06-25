@@ -47,7 +47,8 @@ int main(int argc, char *argv[]){
   printf ( "  A, B, N  = %f, %f, %d\n", a,b,n );
   printf ( "  Valor exacto = %24.16f\n", exact );
 
-  wtime1 = cpu_time();
+  //wtime1 = cpu_time();
+  wtime1 = omp_get_wtime();
 
   total = 0.0;
   #pragma omp parallel shared (a,b,n) num_threads(num2)
@@ -56,8 +57,9 @@ int main(int argc, char *argv[]){
         x = ((n-i-1)*a+i*b)/(n-1);
         total=total+f(x);
   }
-  wtime2 = cpu_time();
-  
+  //wtime2 = cpu_time();
+  wtime2 = omp_get_wtime();
+
   #pragma omp master
   {
     std::ofstream file_out("tiempos_quad_omp_"+std::to_string(n)+".txt",std::ios::out|std::ios::app);
