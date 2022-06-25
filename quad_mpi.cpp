@@ -20,7 +20,8 @@ double cpu_time (){
 
 
 int main(int argc, char **argv) {
-  int n = strtol(argv[1], NULL, 10);
+  int num = strtol(argv[1], NULL, 10);
+  int n = num;
   int rank{}, size{};
   MPI_Init(&argc, &argv);                   // Initialize MPI
   MPI_Comm_rank(MPI_COMM_WORLD, &rank); // Rank of the processor
@@ -105,7 +106,7 @@ int main(int argc, char **argv) {
 
   if ( rank == 0 )
   {
-    std::ofstream file_out("tiempos_quad_mpi_"+std::to_string(n)+".txt",std::ios::out|std::ios::app);
+    std::ofstream file_out("tiempos_quad_mpi_"+std::to_string(num)+".txt",std::ios::out|std::ios::app);
     wtime2 = MPI_Wtime ();
     error = fabs ( total - exact );
     wtime = wtime2 - wtime1;
